@@ -1,0 +1,27 @@
+<div class="container">
+  <p></p>
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h4>Modifier</h4>
+      <div class="card">
+        <div class="card-body" *ngIf="product">
+          <form #f="ngForm" (ngSubmit)="EditProduct(f.value)">
+            <div class="form-group">
+              <label for="designation">Nom du Produit</label>
+              <input ngModel [(ngModel)]="product.description" placeholder="nomProduit" type="text" name="description" id="designation" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="price">Prix</label>
+              <input ngModel [(ngModel)]="product.price"  placeholder="Prix" type="number" name="price" id="price" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="quantite">Quantite</label>
+              <input ngModel [(ngModel)]="product.quantity"  placeholder="Quantite" type="number" name="quantity" id="quantite" class="form-control">
+            </div>
+            <button class="btn btn-sm btn-primary">Valider</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

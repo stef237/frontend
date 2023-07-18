@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <button (click)="onGetProducts()" class="btn btn-sm btn-success">Voir tous les produits</button>
+        </div>
+        <div class="col-4">
+          <form #f="ngForm">
+             <div class="form-group">
+               <label for="keyword">Recherche</label>
+               <input (keyup)="onTapeKeyword({value : f.value})" ngModel placeholder="Tapez votre le nom du produit recherché ici!!" type="text" name="keyword" id="keyword" class="form-control">
+             </div>
+          </form>
+        </div>
+        <div class="col-4">
+          <form #f1="ngForm">
+            <div class="form-group">
+              <label for="id">Filtre par categorie</label>
+                <select *ngIf="categories"  class="form-control" ngModel  name="id" id="id" (change)="onChangeSelect({value : f1.value})">
+                  <option value="">----------</option>
+                  <option *ngFor="let c of categories._embedded.categories" value="{{c.id}}">{{c.designation}}</option>
+                </select>
+            </div>
+          </form>
+        </div>
+      </div>
+      <h4 *ngIf="products" class="card-title">Liste de Produits</h4>
+      <div class="row">
+          <table class="table table-hover" *ngIf="products">
+            <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom du Produit</th>
+              <th scope="col">Quantite</th>
+              <th scope="col">Prix</th>
+              <th colspan="2">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of products._embedded.products">
+              <th scope="row">{{p.id}}</th>
+               <td>{{p.description}}</td>
+              <td>{{p.quantity}}</td>
+              <td>{{p.price|number:'0.2'}} € ( Euro )</td>
+              <td><a (click)="onEditProduct({p : p})" class="btn-info btn">edit</a></td>
+              <td><a (click)="onDeleteProduct({p : p})" class="btn-danger btn">delete</a></td>
+            </tr>
+            </tbody>
+          </table>
+        <ul *ngIf="pages" class="pagination">
+          <li *ngFor="let p of pages; let i=index" class="page-link " [ngClass]=" i == currentPage ? 'active' :''">
+            <a class="clickable" (click)="onProductPage(i)"> {{i}}</a>
+          </li>
+        </ul>
+        </div>
+    </div>
+  </div>
+</div>
